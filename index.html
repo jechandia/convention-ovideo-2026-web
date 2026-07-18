@@ -81,6 +81,11 @@
   --texto:'Raleway',system-ui,-apple-system,sans-serif;
   /* escala de z deliberada */
   --z-nav:30;
+  /* calidez: radios y elevación suave (doctrina confirmada 2026-07-18) */
+  --r-md:12px;         /* botones, insignias, stills */
+  --r-lg:16px;         /* fichas y fotos grandes */
+  --sombra:0 14px 34px rgba(0,15,20,.35);
+  --sombra-oro:0 10px 26px rgba(255,199,58,.28);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -142,6 +147,7 @@ h3{
 .nav-links a:hover{color:var(--oro)}
 .nav-cta{
   background:var(--oro);color:var(--mar)!important;padding:10px 20px;
+  border-radius:999px;
   font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;
 }
 .nav-cta:hover{background:#ffd76a}
@@ -194,6 +200,7 @@ h3{
   background:var(--granate);color:var(--oro);
   font-family:var(--display);font-style:italic;
   font-size:clamp(15px,1.9vw,19px);padding:7px 20px;
+  border-radius:10px;
 }
 .hero-datos .btn{margin-left:auto}
 @media(max-width:720px){
@@ -205,10 +212,11 @@ h3{
 .btn{
   display:inline-block;text-decoration:none;font-weight:800;font-size:13.5px;
   letter-spacing:.06em;text-transform:uppercase;padding:15px 32px;
-  transition:transform .18s cubic-bezier(.22,1,.36,1),background .18s,color .18s,border-color .18s;
+  border-radius:var(--r-md);
+  transition:transform .18s cubic-bezier(.22,1,.36,1),background .18s,color .18s,border-color .18s,box-shadow .18s;
 }
 .btn-oro{background:var(--oro);color:var(--mar)}
-.btn-oro:hover{background:#ffd76a;transform:translateY(-2px)}
+.btn-oro:hover{background:#ffd76a;transform:translateY(-2px);box-shadow:var(--sombra-oro)}
 .btn-linea{border:2px solid rgba(239,234,221,.45);color:var(--hueso)}
 .btn-linea:hover{border-color:var(--oro);color:var(--oro)}
 .btns{display:flex;gap:13px;flex-wrap:wrap}
@@ -231,7 +239,7 @@ h3{
   color:var(--oro);margin-top:12px;
 }
 .invita-txt p+p{margin-top:14px}
-.invita-foto{border:1px solid var(--linea)}
+.invita-foto{border:1px solid var(--linea);border-radius:var(--r-lg);box-shadow:var(--sombra)}
 
 /* programa: la columna vertebral de la página ---------- */
 .tabla{
@@ -283,7 +291,10 @@ h3{
 
 /* expositores ---------- */
 .exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.exp{background:rgba(0,101,124,.32);border:1px solid var(--linea)}
+.exp{
+  background:rgba(0,101,124,.32);border:1px solid var(--linea);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sombra);
+}
 .exp img{width:100%;aspect-ratio:4/5;object-fit:cover}
 .exp-txt{padding:18px 18px 22px;border-top:2px solid var(--oro)}
 .exp h3{font-size:19px;color:var(--hueso);line-height:1.2}
@@ -295,7 +306,7 @@ h3{
 /* guía del visitante: todo el «cómo» en un solo lugar ---------- */
 .guia{display:grid;grid-template-columns:5fr 7fr;gap:clamp(36px,5vw,60px);align-items:start}
 @media(max-width:940px){.guia{grid-template-columns:1fr}}
-.guia-recinto img{border:1px solid var(--linea)}
+.guia-recinto img{border:1px solid var(--linea);border-radius:var(--r-lg);box-shadow:var(--sombra)}
 .direccion{font-style:normal;margin:22px 0 4px}
 .direccion strong,.direccion span{
   font-family:var(--display);font-weight:400;
@@ -331,7 +342,7 @@ h3{
 
 /* testimonios ---------- */
 .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.testi-grid img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--linea)}
+.testi-grid img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--linea);border-radius:var(--r-md)}
 
 /* llamada final: el único vuelco a oro de la página ---------- */
 .final{background:var(--oro);color:var(--mar);text-align:center;padding:clamp(64px,9vw,104px) 0}
@@ -341,6 +352,7 @@ h3{
   display:inline-block;background:var(--granate);color:var(--oro);
   font-family:var(--display);font-weight:400;font-style:italic;
   font-size:clamp(16px,2.2vw,21px);padding:9px 26px;margin-bottom:22px;
+  border-radius:10px;
 }
 .final .btns{justify-content:center}
 .final .btn-oscuro{background:var(--mar);color:var(--oro)}
