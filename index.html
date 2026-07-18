@@ -48,10 +48,11 @@
 </script>
 <style>
 /* ============================================================
-   Convención Bloque Europa 2026
-   Color y tipografía fijados por el manual de identidad.
-   Display: Avigea — la tipografía real de la marca, servida local.
-   Texto:   Raleway — la del manual.
+   Convención Bloque Europa 2026 — rediseño estructural
+   Narrativa de la información, en orden de lectura:
+   cuándo/dónde (hero) → por qué (invitación) → qué (programa)
+   → quién (expositores) → cómo (guía) → quién convoca → prueba → ven.
+   Color y tipografía fijados por el manual: Avigea (sin negrita) + Raleway.
    ============================================================ */
 @font-face{
   font-family:'Avigea';
@@ -64,19 +65,22 @@
   font-weight:400;font-style:italic;font-display:swap;
 }
 :root{
-  --mar:#003d4d;        /* fondo profundo: la página entera vive aquí */
-  --teal:#00657c;       /* marca */
-  --aqua:#05adc0;       /* marca */
-  --aqua-txt:#2ab9c9;   /* el aqua aclarado un 15%: sobre --mar el de marca
-                           se queda en 4,36:1 y no llega a AA. Este da 5,00:1. */
-  --oro:#ffc73a;        /* marca — el único acento brillante */
-  --granate:#a61430;    /* marca — reservado a «Entrada libre» */
+  --mar:#003d4d;
+  --teal:#00657c;
+  --aqua:#05adc0;
+  --aqua-txt:#2ab9c9;   /* aqua aclarado 15%: el de marca da 4,36:1 sobre --mar y no llega a AA */
+  --oro:#ffc73a;
+  --oro-teal:#ffce52;   /* oro aclarado 12%: el puro da 4,28:1 sobre --teal */
+  --granate:#a61430;
   --hueso:#efeadd;
   --hueso-mid:rgba(239,234,221,.72);
   --cuerda:#c9a678;
+  --linea:rgba(201,166,120,.24);
   --maxw:1140px;
   --display:'Avigea',Georgia,serif;
   --texto:'Raleway',system-ui,-apple-system,sans-serif;
+  /* escala de z deliberada */
+  --z-nav:30;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -90,57 +94,54 @@ body{
 /* height:auto es imprescindible: sin él los atributos width/height del HTML
    anulan aspect-ratio y las imágenes salen deformadas. */
 img{max-width:100%;height:auto;display:block}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-/* Solo para lectores de pantalla: la página no tenía h1 (el hero es una imagen). */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 :focus-visible{outline:3px solid var(--oro);outline-offset:3px}
 
-/* ---------- tipografía ---------- */
-.antetitulo{
-  display:block;font-size:11px;font-weight:800;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--aqua-txt);margin-bottom:18px;
-}
-/* Avigea solo trae redonda e itálica. Sin esto, el navegador falsifica la
-   negrita engordando el trazo y estropea el dibujo de la letra. */
-h2,.dato .v,.versiculo p,.exp h3,.dia .num,.direccion strong,.libre,footer .lema-txt{
-  font-synthesis:none;
-}
+/* Avigea no trae negrita: nada de síntesis en los selectores display. */
+h1,h2,h3,.display{font-synthesis:none}
+
 h2{
-  font-family:var(--display);
-  font-size:clamp(32px,5.4vw,58px);font-weight:400;line-height:1.03;
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(34px,5vw,56px);line-height:1.04;
   letter-spacing:-.015em;color:var(--hueso);
+  text-wrap:balance;
 }
 h2 .oro{color:var(--oro)}
-.entradilla{
+h3{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(21px,2.6vw,27px);color:var(--oro);
+  text-wrap:balance;
+}
+.lead{
   color:var(--hueso-mid);font-size:clamp(16px,2vw,18.5px);
-  max-width:56ch;margin-top:20px;
+  max-width:58ch;margin-top:16px;text-wrap:pretty;
 }
 
-/* ---------- la cuerda: material real del PSD, no una línea CSS ---------- */
 .cuerda{
   display:block;width:100%;max-width:var(--maxw);
-  margin:0 auto;padding:0 22px;opacity:.9;
+  margin:0 auto;padding:0 24px;opacity:.9;
 }
 
 /* ---------- nav ---------- */
 .nav{
-  position:sticky;top:0;z-index:60;
-  background:rgba(0,61,77,.93);backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(201,166,120,.28);
+  position:sticky;top:0;z-index:var(--z-nav);
+  background:rgba(0,61,77,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--linea);
 }
 .nav-inner{
-  max-width:var(--maxw);margin:0 auto;padding:11px 22px;
+  max-width:var(--maxw);margin:0 auto;padding:11px 24px;
   display:flex;align-items:center;justify-content:space-between;gap:18px;
 }
-.marca img{height:44px;width:auto}
-.nav-links{display:flex;align-items:center;gap:30px}
+.marca img{height:42px;width:auto}
+.nav-links{display:flex;align-items:center;gap:28px}
 .nav-links a{
   color:var(--hueso-mid);text-decoration:none;font-size:14px;font-weight:600;
   transition:color .18s;
 }
 .nav-links a:hover{color:var(--oro)}
 .nav-cta{
-  background:var(--oro);color:var(--mar)!important;padding:10px 21px;
+  background:var(--oro);color:var(--mar)!important;padding:10px 20px;
   font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;
 }
 .nav-cta:hover{background:#ffd76a}
@@ -152,190 +153,221 @@ h2 .oro{color:var(--oro)}
   .nav-cta{padding:9px 14px;font-size:11.5px}
 }
 
-/* ---------- hero: la portada de la marca, tal como la diseñaron ---------- */
-.hero{position:relative;overflow:hidden;background:var(--teal)}
-.hero-media{
-  position:relative;display:grid;place-items:center;
-  aspect-ratio:16/9;
-  background:url('img/hero-bg.jpg') center/cover no-repeat var(--teal);
+/* ---------- hero: una pantalla, toda la información esencial ----------
+   La foto manda (registro de marca, brief con imagen); el lema va centrado
+   y los tres datos que responden «¿voy?» viven DENTRO del hero, no debajo. */
+.hero{
+  position:relative;overflow:hidden;background:var(--teal);
+  min-height:clamp(540px,88svh,860px);
+  display:grid;grid-template-rows:1fr auto;
 }
-.hero-lema{width:37%;height:auto;filter:drop-shadow(0 10px 26px rgba(0,25,33,.5))}
-@media(max-width:860px){.hero-media{aspect-ratio:4/3}.hero-lema{width:62%}}
-@media(max-width:560px){.hero-media{aspect-ratio:3/4}.hero-lema{width:78%}}
-
-/* ---------- datos prácticos: el verdadero trabajo de esta página ---------- */
-.datos{background:var(--mar);border-top:1px solid rgba(201,166,120,.25)}
-.datos-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
-.dato{padding:30px 26px;text-align:center;border-right:1px solid rgba(201,166,120,.22)}
-.dato:last-child{border-right:0}
-.dato .k{
-  display:block;font-size:10.5px;font-weight:800;letter-spacing:.26em;
-  text-transform:uppercase;color:var(--aqua-txt);margin-bottom:9px;
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:url('img/hero-bg.jpg') center/cover no-repeat;
 }
-.dato .v{
-  display:block;font-family:var(--display);font-weight:400;
-  font-size:clamp(19px,2.4vw,25px);line-height:1.15;color:var(--hueso);
+.hero::after{ /* velo inferior: legibilidad AA de la franja de datos */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,61,77,0) 46%,rgba(0,61,77,.6) 74%,rgba(0,61,77,.97) 100%);
 }
-.dato .s{display:block;font-size:13.5px;color:var(--hueso-mid);margin-top:5px}
+.hero-centro{
+  position:relative;z-index:1;
+  display:grid;place-items:center;
+  padding:clamp(40px,7vh,84px) 24px 12px;
+}
+.hero-lema{
+  width:min(520px,72vw);height:auto;
+  filter:drop-shadow(0 10px 26px rgba(0,25,33,.5));
+}
+.hero-datos{
+  position:relative;z-index:1;
+  max-width:var(--maxw);width:100%;margin:0 auto;
+  padding:10px 24px clamp(26px,4vh,44px);
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 42px;
+}
+.hd{display:grid;gap:2px}
+.hd .display{
+  font-family:var(--display);font-size:clamp(21px,2.6vw,28px);
+  line-height:1.1;color:var(--hueso);
+}
+.hd small{font-size:13.5px;color:var(--hueso-mid);font-weight:600}
+.hd-libre{
+  background:var(--granate);color:var(--oro);
+  font-family:var(--display);font-style:italic;
+  font-size:clamp(15px,1.9vw,19px);padding:7px 20px;
+}
+.hero-datos .btn{margin-left:auto}
 @media(max-width:720px){
-  .datos-grid{grid-template-columns:1fr}
-  .dato{border-right:0;border-bottom:1px solid rgba(201,166,120,.22);padding:22px}
-  .dato:last-child{border-bottom:0}
+  .hero-datos{gap:12px 28px}
+  .hero-datos .btn{margin-left:0;width:100%;text-align:center}
 }
 
-.versiculo{text-align:center;padding:clamp(44px,6vw,66px) 22px;background:var(--mar)}
-.versiculo p{
-  font-family:var(--display);font-weight:400;font-style:italic;
-  font-size:clamp(20px,3vw,31px);line-height:1.35;color:var(--hueso);
-  max-width:21ch;margin:0 auto;
-}
-.versiculo cite{
-  display:block;font-family:var(--texto);font-style:normal;font-weight:800;
-  font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--oro);margin-top:20px;
-}
-
-/* ---------- secciones ---------- */
-.sec{padding:clamp(62px,8vw,104px) 0}
-
-/* invitación */
-.invita{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(34px,5vw,62px);align-items:center}
-@media(max-width:900px){.invita{grid-template-columns:1fr}}
-.invita ul{list-style:none;margin-top:30px}
-/* Sin numerar: estos cuatro puntos no son una secuencia, solo se separan. */
-.invita li{
-  padding:14px 0;border-top:1px solid rgba(201,166,120,.22);
-  font-weight:600;font-size:15.5px;
-}
-.invita li:last-child{border-bottom:1px solid rgba(201,166,120,.22)}
-.invita-foto{border:1px solid rgba(201,166,120,.3)}
-
-/* expositores */
-.exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-@media(max-width:900px){.exp-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.exp-grid{grid-template-columns:1fr}}
-.exp{background:rgba(0,101,124,.32);border:1px solid rgba(201,166,120,.26)}
-.exp img{width:100%;aspect-ratio:4/5;object-fit:cover}
-.exp-txt{padding:20px 18px 24px;border-top:2px solid var(--oro)}
-.exp .cargo{
-  display:block;font-size:10.5px;font-weight:800;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--aqua-txt);margin-bottom:8px;
-}
-.exp h3{font-family:var(--display);font-weight:400;font-size:19px;line-height:1.2;color:var(--hueso)}
-
-/* programa: los cuatro días, sin más adorno que el número */
-.dias{display:grid;grid-template-columns:repeat(4,1fr)}
-.dia{padding:0 18px 30px;text-align:center}
-.dia .num{
-  font-family:var(--display);font-weight:400;font-size:clamp(38px,5vw,54px);
-  line-height:1;color:var(--oro);letter-spacing:-.03em;
-}
-.dia .dow{
-  display:block;font-size:11px;font-weight:800;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--hueso-mid);margin:9px 0 12px;
-}
-.horas{list-style:none;margin:0 0 12px;display:grid;gap:3px;justify-items:center}
-.horas li{font-size:14px;font-weight:800;color:var(--oro);letter-spacing:.05em;font-variant-numeric:tabular-nums}
-.dia p{font-size:14.5px;color:var(--hueso-mid);line-height:1.55}
-@media(max-width:820px){
-  .dias{grid-template-columns:repeat(2,1fr);row-gap:30px}
-}
-@media(max-width:460px){.dias{grid-template-columns:1fr}}
-.nota{text-align:center;margin-top:34px;font-size:13.5px;color:var(--hueso-mid);font-style:italic}
-
-/* lugar */
-.lugar{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,60px);align-items:center}
-@media(max-width:900px){.lugar{grid-template-columns:1fr}}
-.lugar-foto{border:1px solid rgba(201,166,120,.3)}
-/* La dirección es el dato que hace su trabajo: que se lea grande y de un golpe.
-   Sin filete lateral: la jerarquía la pone la propia Avigea. */
-.direccion{font-style:normal;margin:26px 0 4px}
-/* Una sola línea: la jerarquía la marca el color, no el salto de renglón. */
-.direccion strong,.direccion span{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(18px,2.3vw,24px);line-height:1.3;
-}
-.direccion strong{color:var(--hueso)}
-.direccion span{color:var(--hueso-mid);white-space:nowrap}
-.direccion span::before{content:"· "}
-/* Por debajo de este ancho ya no cabe en una línea: apilamos y quitamos el
-   separador, que si no queda huérfano abriendo el segundo renglón. */
-@media(max-width:560px){
-  .direccion span{display:block;white-space:normal}
-  .direccion span::before{content:none}
-}
-.btns-lugar{justify-content:flex-start;margin-top:28px}
-@media(max-width:900px){.btns-lugar{justify-content:center}}
-
-/* el viaje: cómo llegar a Oviedo y qué ver entre servicio y servicio */
-.viaje{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,64px)}
-@media(max-width:900px){.viaje{grid-template-columns:1fr}}
-.viaje h3{
-  font-family:var(--display);font-weight:400;font-synthesis:none;
-  font-size:23px;color:var(--oro);margin-bottom:8px;
-}
-.viaje .fila{padding:13px 0;border-top:1px solid rgba(201,166,120,.22)}
-.viaje .fila:last-child{border-bottom:1px solid rgba(201,166,120,.22)}
-.viaje dt{
-  font-size:10.5px;font-weight:800;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--aqua-txt);margin-bottom:3px;
-}
-.viaje dd{font-size:15px;color:var(--hueso-mid);line-height:1.55}
-
-/* quién convoca: banda en teal para variar el ritmo.
-   Sobre teal, ni el oro puro (4,28:1) ni el hueso al 72% (3,65:1) llegan a AA:
-   se aclaran solo aquí. */
-.sec--banda{background:var(--teal)}
-.sec--banda .antetitulo{color:#ffce52}
-.sec--banda .entradilla{color:rgba(239,234,221,.88)}
-.mmm-cent{max-width:72ch;margin:0 auto;text-align:center}
-.mmm-cent .entradilla{margin-left:auto;margin-right:auto}
-.mmm-cent .btns{margin-top:32px}
-
-/* testimonios */
-.testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-@media(max-width:900px){.testi-grid{grid-template-columns:repeat(2,1fr)}}
-.testi-grid img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid rgba(201,166,120,.26)}
-
-/* llamada final — el único vuelco a oro de toda la página */
-.final{background:var(--oro);color:var(--mar);text-align:center;padding:clamp(62px,8vw,100px) 0}
-.final h2{color:var(--mar)}
-.final p{color:rgba(0,61,77,.82);font-size:clamp(16.5px,2vw,19px);max-width:46ch;margin:20px auto 34px}
-.libre{
-  display:inline-block;background:var(--granate);color:var(--oro);
-  font-family:var(--display);font-weight:400;font-style:italic;
-  font-size:clamp(16px,2.2vw,21px);padding:9px 26px;margin-bottom:24px;
-}
-
-/* botones */
-.btns{display:flex;gap:13px;justify-content:center;flex-wrap:wrap}
+/* ---------- botones ---------- */
 .btn{
   display:inline-block;text-decoration:none;font-weight:800;font-size:13.5px;
-  letter-spacing:.06em;text-transform:uppercase;padding:16px 34px;
-  transition:transform .18s,background .18s,color .18s,border-color .18s;
+  letter-spacing:.06em;text-transform:uppercase;padding:15px 32px;
+  transition:transform .18s cubic-bezier(.22,1,.36,1),background .18s,color .18s,border-color .18s;
 }
 .btn-oro{background:var(--oro);color:var(--mar)}
 .btn-oro:hover{background:#ffd76a;transform:translateY(-2px)}
 .btn-linea{border:2px solid rgba(239,234,221,.45);color:var(--hueso)}
 .btn-linea:hover{border-color:var(--oro);color:var(--oro)}
+.btns{display:flex;gap:13px;flex-wrap:wrap}
+
+/* ---------- secciones ---------- */
+.sec{padding:clamp(64px,9vw,110px) 0}
+.sec-cab{margin-bottom:clamp(36px,5vw,56px)}
+
+/* invitación: por qué venir, con el versículo como ancla ---------- */
+.invita{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,64px);align-items:center}
+@media(max-width:900px){.invita{grid-template-columns:1fr}}
+.invita .verso{
+  font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:clamp(20px,2.6vw,27px);line-height:1.4;color:var(--hueso);
+  max-width:26ch;margin:26px 0 0;text-wrap:balance;
+}
+.invita .verso cite{
+  display:block;font-family:var(--texto);font-style:normal;font-weight:800;
+  font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--oro);margin-top:12px;
+}
+.invita-txt p+p{margin-top:14px}
+.invita-foto{border:1px solid var(--linea)}
+
+/* programa: la columna vertebral de la página ---------- */
+.tabla{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);
+}
+.tdia{
+  padding:26px 22px 30px;
+  border-right:1px solid var(--linea);
+}
+.tdia:last-child{border-right:0}
+.tdia header{display:flex;align-items:baseline;gap:10px;margin-bottom:2px}
+.tnum{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(40px,4.6vw,58px);line-height:1;
+  color:var(--oro);letter-spacing:-.03em;
+}
+.tdow{
+  font-size:11px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--hueso-mid);
+}
+.ttema{
+  font-family:var(--display);font-style:italic;font-size:19px;
+  color:var(--hueso);margin:8px 0 16px;
+}
+.tses{list-style:none;display:grid;gap:9px}
+.tses li{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding-top:9px;border-top:1px solid var(--linea);
+  font-size:14.5px;
+}
+.tses .cual{color:var(--hueso-mid);font-weight:600}
+.tses time{
+  color:var(--oro);font-weight:800;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;white-space:nowrap;
+}
+@media(max-width:860px){
+  .tabla{grid-template-columns:1fr 1fr}
+  .tdia:nth-child(2){border-right:0}
+  .tdia:nth-child(-n+2){border-bottom:1px solid var(--linea)}
+}
+@media(max-width:460px){
+  .tabla{grid-template-columns:1fr}
+  .tdia{border-right:0;border-bottom:1px solid var(--linea)}
+  .tdia:last-child{border-bottom:0}
+}
+.prog-pie{margin-top:22px;font-size:14px;color:var(--hueso-mid)}
+.prog-pie strong{color:var(--hueso);font-weight:800}
+
+/* expositores ---------- */
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.exp{background:rgba(0,101,124,.32);border:1px solid var(--linea)}
+.exp img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.exp-txt{padding:18px 18px 22px;border-top:2px solid var(--oro)}
+.exp h3{font-size:19px;color:var(--hueso);line-height:1.2}
+.exp .cargo{
+  display:block;font-size:12.5px;font-weight:600;color:var(--aqua-txt);
+  margin-top:6px;
+}
+
+/* guía del visitante: todo el «cómo» en un solo lugar ---------- */
+.guia{display:grid;grid-template-columns:5fr 7fr;gap:clamp(36px,5vw,60px);align-items:start}
+@media(max-width:940px){.guia{grid-template-columns:1fr}}
+.guia-recinto img{border:1px solid var(--linea)}
+.direccion{font-style:normal;margin:22px 0 4px}
+.direccion strong,.direccion span{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.2vw,23px);line-height:1.3;
+}
+.direccion strong{color:var(--hueso)}
+.direccion span{color:var(--hueso-mid);white-space:nowrap}
+.direccion span::before{content:"· "}
+@media(max-width:560px){
+  .direccion span{display:block;white-space:normal}
+  .direccion span::before{content:none}
+}
+.guia-recinto .btns{margin-top:20px}
+.guia-recinto .bus{margin-top:22px;font-size:14.5px;color:var(--hueso-mid);text-wrap:pretty}
+.guia-recinto .bus strong{color:var(--hueso);font-weight:800}
+.guia-col h3{margin-bottom:6px}
+.guia-col+.guia-col{margin-top:34px}
+.fila{padding:12px 0;border-top:1px solid var(--linea)}
+.fila:last-child{border-bottom:1px solid var(--linea)}
+.fila dt{
+  font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--aqua-txt);margin-bottom:2px;
+}
+.fila dd{font-size:15px;color:var(--hueso-mid);line-height:1.55;text-wrap:pretty}
+
+/* quién convoca: banda teal ---------- */
+.banda{background:var(--teal)}
+.banda .lead{color:rgba(239,234,221,.88)}
+.banda h2 .oro{color:var(--oro-teal)}
+.mmm-cent{max-width:72ch;margin:0 auto;text-align:center}
+.mmm-cent .lead{margin-left:auto;margin-right:auto}
+.mmm-cent .btns{justify-content:center;margin-top:30px}
+
+/* testimonios ---------- */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.testi-grid img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--linea)}
+
+/* llamada final: el único vuelco a oro de la página ---------- */
+.final{background:var(--oro);color:var(--mar);text-align:center;padding:clamp(64px,9vw,104px) 0}
+.final h2{color:var(--mar)}
+.final .lead{color:rgba(0,61,77,.82);max-width:46ch;margin:18px auto 32px}
+.libre{
+  display:inline-block;background:var(--granate);color:var(--oro);
+  font-family:var(--display);font-weight:400;font-style:italic;
+  font-size:clamp(16px,2.2vw,21px);padding:9px 26px;margin-bottom:22px;
+}
+.final .btns{justify-content:center}
 .final .btn-oscuro{background:var(--mar);color:var(--oro)}
 .final .btn-oscuro:hover{background:var(--teal);transform:translateY(-2px)}
 .final .btn-linea{border-color:rgba(0,61,77,.45);color:var(--mar)}
 .final .btn-linea:hover{border-color:var(--mar);color:var(--mar)}
 
-/* pie */
-footer{background:var(--mar);padding:52px 0 44px;text-align:center}
-footer img{height:64px;width:auto;margin:0 auto 20px}
+/* pie ---------- */
+footer{padding:52px 0 44px;text-align:center}
+footer img{height:60px;width:auto;margin:0 auto 18px}
 footer p{color:var(--hueso-mid);font-size:14px}
 footer .lema-txt{font-family:var(--display);font-style:italic;font-size:16px;color:var(--hueso);margin-top:6px}
-footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
+footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:20px}
 
-/* aparición al desplazar — contenida y desactivable */
-.rev{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
-.rev.on{opacity:1;transform:none}
+/* ---------- movimiento ----------
+   El contenido es visible por defecto; solo anima si hay JS (html.js)
+   y el usuario no pide movimiento reducido. Nunca se cuelga la visibilidad
+   de una clase que quizá no llegue. */
+@keyframes subir{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.js .hero-lema{animation:subir .9s cubic-bezier(.22,1,.36,1) both}
+.js .hero-datos{animation:subir .9s cubic-bezier(.22,1,.36,1) .18s both}
+.js .rev{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.js .rev.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .rev{opacity:1;transform:none;transition:none}
+  .js .hero-lema,.js .hero-datos{animation:none}
+  .js .rev{opacity:1;transform:none;transition:none}
 }
 </style>
 </head>
@@ -347,105 +379,130 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
       <img src="img/logo-bloque.svg" alt="Convención Bloque Europa">
     </a>
     <div class="nav-links">
-      <a href="#evento">El evento</a>
-      <a href="#expositores">Expositores</a>
       <a href="#programa">Programa</a>
-      <a href="#lugar">Cómo llegar</a>
-      <a href="#asturias">Asturias</a>
+      <a href="#expositores">Expositores</a>
+      <a href="#guia">Guía del visitante</a>
       <a class="nav-cta" href="#asistir">Ven con tu familia</a>
     </div>
   </div>
 </nav>
 
+<!-- HERO: en una sola pantalla, el lema y los tres datos que deciden el viaje -->
 <header class="hero" id="top">
   <h1 class="oculto">Convención Bloque Europa 2026: Donde Cristo está, la Familia Vencerá. Del 6 al 9 de agosto en el Palacio de los Deportes de Oviedo. Entrada libre.</h1>
-  <div class="hero-media">
+  <div class="hero-centro">
     <img class="hero-lema" src="img/lema.svg"
          alt="Donde Cristo está, la Familia Vencerá" width="1253" height="756">
   </div>
+  <div class="hero-datos">
+    <div class="hd">
+      <span class="display">6 – 9 de agosto</span>
+      <small>2026 · jueves a domingo</small>
+    </div>
+    <div class="hd">
+      <span class="display">Palacio de los Deportes</span>
+      <small>C/ Río Caudal, s/n · Oviedo</small>
+    </div>
+    <span class="hd-libre">¡Entrada libre!</span>
+    <a class="btn btn-oro" href="#programa">Ver el programa</a>
+  </div>
 </header>
 
-<div class="datos">
-  <div class="datos-grid">
-    <div class="dato">
-      <span class="k">Cuándo</span>
-      <span class="v">6 al 9 de agosto</span>
-      <span class="s">Jueves a domingo · 2026</span>
-    </div>
-    <div class="dato">
-      <span class="k">Dónde</span>
-      <span class="v">Palacio de los Deportes</span>
-      <span class="s">Oviedo, Asturias</span>
-    </div>
-    <div class="dato">
-      <span class="k">Entrada</span>
-      <span class="v">Libre y gratuita</span>
-      <span class="s">Sin inscripción previa</span>
-    </div>
-  </div>
-</div>
-
-<div class="versiculo">
-  <p>«Y cordón de tres dobleces no se rompe pronto.»</p>
-  <cite>Eclesiastés 4:12</cite>
-</div>
-
-<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
-
+<!-- POR QUÉ: la invitación, con el versículo como ancla -->
 <section class="sec" id="evento">
   <div class="wrap invita">
-    <div class="rev">
-      <span class="antetitulo">Cuatro días en Oviedo</span>
+    <div class="invita-txt rev">
       <h2>Aquí hay esperanza, fe y <span class="oro">restauración</span></h2>
-      <p class="entradilla">Durante cuatro días el Palacio de los Deportes se llena de familias venidas de toda Europa. Alabanza, predicación de la Palabra y tiempo dedicado a lo que más importa: los tuyos.</p>
-      <p class="entradilla" style="margin-top:14px">No importa dónde estés hoy. Ven tal como eres, y trae contigo a los tuyos.</p>
-      <ul>
-        <li>Ministración para todas las edades, de los niños a los abuelos</li>
-        <li>Espacio propio para niños, jóvenes y matrimonios</li>
-        <li>Entrada libre: no hace falta entrada ni inscripción</li>
-        <li>Ven con tu familia y con quien quieras invitar</li>
-      </ul>
+      <p class="lead">Durante cuatro días el Palacio de los Deportes se llena de familias venidas de toda Europa: alabanza, predicación de la Palabra y tiempo para lo que más importa, los tuyos. Hay ministración para todas las edades y espacio propio para niños, jóvenes y matrimonios.</p>
+      <p class="lead">No importa dónde estés hoy. Ven tal como eres, y trae contigo a quien quieras invitar.</p>
+      <blockquote class="verso">
+        «Y cordón de tres dobleces no se rompe pronto.»
+        <cite>Eclesiastés 4:12</cite>
+      </blockquote>
     </div>
-    <img class="invita-foto rev" src="img/familia.jpg" alt="Familia en la Convención Bloque Europa" loading="lazy">
+    <img class="invita-foto rev" src="img/familia.jpg" alt="Cristo une a las familias — Convención Bloque Europa" loading="lazy">
   </div>
 </section>
 
 <img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
 
+<!-- QUÉ: el programa, la información central del sitio -->
+<section class="sec" id="programa">
+  <div class="wrap">
+    <div class="sec-cab rev">
+      <h2>Cuatro días, <span class="oro">seis servicios</span></h2>
+      <p class="lead">Del jueves 6 al domingo 9 de agosto de 2026. La entrada es libre en todos los servicios, sin inscripción.</p>
+    </div>
+    <div class="tabla rev">
+      <article class="tdia">
+        <header><span class="tnum">06</span><span class="tdow">Jueves</span></header>
+        <p class="ttema">Apertura</p>
+        <ul class="tses">
+          <li><span class="cual">Tarde</span><time datetime="2026-08-06T18:30">18:30 – 21:00</time></li>
+        </ul>
+      </article>
+      <article class="tdia">
+        <header><span class="tnum">07</span><span class="tdow">Viernes</span></header>
+        <p class="ttema">La familia</p>
+        <ul class="tses">
+          <li><span class="cual">Mañana</span><time datetime="2026-08-07T09:30">9:30 – 14:00</time></li>
+          <li><span class="cual">Tarde</span><time datetime="2026-08-07T18:30">18:30 – 21:00</time></li>
+        </ul>
+      </article>
+      <article class="tdia">
+        <header><span class="tnum">08</span><span class="tdow">Sábado</span></header>
+        <p class="ttema">La juventud</p>
+        <ul class="tses">
+          <li><span class="cual">Mañana</span><time datetime="2026-08-08T09:30">9:30 – 14:00</time></li>
+          <li><span class="cual">Tarde</span><time datetime="2026-08-08T18:30">18:30 – 21:00</time></li>
+        </ul>
+      </article>
+      <article class="tdia">
+        <header><span class="tnum">09</span><span class="tdow">Domingo</span></header>
+        <p class="ttema">Clausura</p>
+        <ul class="tses">
+          <li><span class="cual">Mañana</span><time datetime="2026-08-09T09:30">9:30 – 14:00</time></li>
+        </ul>
+      </article>
+    </div>
+    <p class="prog-pie rev">Viernes y sábado hay <strong>dos servicios</strong>: la tarde queda libre de 14:00 a 18:30 para comer y descansar en la ciudad.</p>
+  </div>
+</section>
+
+<!-- QUIÉN: los expositores -->
 <section class="sec" id="expositores">
   <div class="wrap">
-    <div class="rev" style="margin-bottom:46px">
-      <span class="antetitulo">Quién predica</span>
+    <div class="sec-cab rev">
       <h2>Los expositores</h2>
-      <p class="entradilla">Oficiales internacionales del Movimiento Misionero Mundial, los cuatro días.</p>
+      <p class="lead">Oficiales internacionales del Movimiento Misionero Mundial, ministrando los cuatro días.</p>
     </div>
     <div class="exp-grid rev">
       <article class="exp">
         <img src="img/exp-concepcion.jpg" alt="Rev. Rubén Concepción Báez" width="640" height="800" loading="lazy">
         <div class="exp-txt">
-          <span class="cargo">Presidente Internacional</span>
           <h3>Rev. Rubén Concepción Báez</h3>
+          <span class="cargo">Presidente Internacional</span>
         </div>
       </article>
       <article class="exp">
         <img src="img/exp-meza.jpg" alt="Rev. Luis Meza Bocanegra" width="640" height="800" loading="lazy">
         <div class="exp-txt">
-          <span class="cargo">Vicepresidente Internacional</span>
           <h3>Rev. Luis Meza Bocanegra</h3>
+          <span class="cargo">Vicepresidente Internacional</span>
         </div>
       </article>
       <article class="exp">
         <img src="img/exp-vergara.jpg" alt="Rev. José Clemente Vergara Pabón" width="640" height="800" loading="lazy">
         <div class="exp-txt">
-          <span class="cargo">Director Internacional</span>
           <h3>Rev. Clemente Vergara Pabón</h3>
+          <span class="cargo">Director Internacional</span>
         </div>
       </article>
       <article class="exp">
         <img src="img/exp-medina.jpg" alt="Rev. Carlos Medina Herrera" width="640" height="800" loading="lazy">
         <div class="exp-txt">
-          <span class="cargo">Director Internacional</span>
           <h3>Rev. Carlos Medina Herrera</h3>
+          <span class="cargo">Director Internacional</span>
         </div>
       </article>
     </div>
@@ -454,114 +511,65 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
 
 <img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
 
-<section class="sec" id="programa">
+<!-- CÓMO: toda la logística en un solo lugar -->
+<section class="sec" id="guia">
   <div class="wrap">
-    <div class="rev" style="margin-bottom:52px">
-      <span class="antetitulo">Agenda</span>
-      <h2>Cuatro días <span class="oro">con los tuyos</span></h2>
-      <p class="entradilla">Del jueves 6 al domingo 9 de agosto de 2026.</p>
+    <div class="sec-cab rev">
+      <h2>Guía del visitante</h2>
+      <p class="lead">El recinto, cómo llegar a Oviedo y qué hacer entre servicio y servicio.</p>
     </div>
-    <div class="dias rev">
-      <article class="dia">
-        <div class="num">06</div>
-        <span class="dow">Jueves</span>
-        <ul class="horas"><li>18:30 – 21:00</li></ul>
-        <p>Apertura de la convención. Bienvenida, alabanza y primera Palabra.</p>
-      </article>
-      <article class="dia">
-        <div class="num">07</div>
-        <span class="dow">Viernes</span>
-        <ul class="horas"><li>9:30 – 14:00</li><li>18:30 – 21:00</li></ul>
-        <p>Día dedicado al hogar: matrimonios, padres e hijos.</p>
-      </article>
-      <article class="dia">
-        <div class="num">08</div>
-        <span class="dow">Sábado</span>
-        <ul class="horas"><li>9:30 – 14:00</li><li>18:30 – 21:00</li></ul>
-        <p>Las nuevas generaciones: jóvenes, testimonios y Palabra.</p>
-      </article>
-      <article class="dia">
-        <div class="num">09</div>
-        <span class="dow">Domingo</span>
-        <ul class="horas"><li>9:30 – 14:00</li></ul>
-        <p>Gran servicio de clausura. Celebración y envío.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
-
-<section class="sec" id="lugar">
-  <div class="wrap lugar">
-    <img class="lugar-foto rev" src="img/palacio.jpg" alt="Palacio de los Deportes de Oviedo" loading="lazy">
-    <div class="rev">
-      <span class="antetitulo">Cómo llegar</span>
-      <h2>Palacio de los Deportes</h2>
-      <address class="direccion"><strong>C/ Río Caudal, s/n</strong> <span>33010 Oviedo, Asturias</span></address>
-      <p class="entradilla">Un recinto con aforo para más de 5.000 personas, así que hay sitio para toda la familia. En bus urbano, la línea E de TUA para en Río Caudal, a 70 metros de la puerta; la línea H queda a 350. Junto al pabellón hay 8 plazas reservadas para personas con movilidad reducida.</p>
-      <div class="btns btns-lugar">
-        <a class="btn btn-oro" href="https://www.google.com/maps/search/?api=1&query=Palacio%20de%20los%20Deportes%20de%20Oviedo%2C%20Calle%20R%C3%ADo%20Caudal%2C%2033010%20Oviedo" target="_blank" rel="noopener">Abrir en Google&nbsp;Maps</a>
-        <a class="btn btn-linea" href="https://maps.apple.com/?q=Palacio%20de%20los%20Deportes%20de%20Oviedo&address=Calle%20R%C3%ADo%20Caudal,%2033010%20Oviedo,%20Espa%C3%B1a" target="_blank" rel="noopener">Abrir en Apple&nbsp;Maps</a>
+    <div class="guia">
+      <div class="guia-recinto rev">
+        <img src="img/palacio.jpg" alt="Palacio de los Deportes de Oviedo" width="1080" height="564" loading="lazy">
+        <address class="direccion"><strong>C/ Río Caudal, s/n</strong> <span>33010 Oviedo, Asturias</span></address>
+        <p class="bus">Aforo para más de 5.000 personas. En bus urbano, la <strong>línea E</strong> de TUA para en Río Caudal, a 70 metros de la puerta; la línea H queda a 350. Hay 8 plazas reservadas para personas con movilidad reducida.</p>
+        <div class="btns">
+          <a class="btn btn-oro" href="https://www.google.com/maps/search/?api=1&query=Palacio%20de%20los%20Deportes%20de%20Oviedo%2C%20Calle%20R%C3%ADo%20Caudal%2C%2033010%20Oviedo" target="_blank" rel="noopener">Google&nbsp;Maps</a>
+          <a class="btn btn-linea" href="https://maps.apple.com/?q=Palacio%20de%20los%20Deportes%20de%20Oviedo&address=Calle%20R%C3%ADo%20Caudal,%2033010%20Oviedo,%20Espa%C3%B1a" target="_blank" rel="noopener">Apple&nbsp;Maps</a>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="guia-col">
+          <h3>Llegar a Oviedo</h3>
+          <dl>
+            <div class="fila"><dt>En avión</dt><dd>Aeropuerto de Asturias (OVD), a 47 km de Oviedo, con autobús directo a la ciudad.</dd></div>
+            <div class="fila"><dt>En tren</dt><dd>Alta velocidad desde Madrid-Chamartín: poco más de 3 horas por la variante de Pajares.</dd></div>
+            <div class="fila"><dt>En autobús</dt><dd>ALSA une Madrid con la estación de Oviedo (c/ Pepe Cosmen) en unas 5 a 7 horas.</dd></div>
+            <div class="fila"><dt>En coche</dt><dd>A-66 desde la Meseta o A-8 por la costa; la «Y» enlaza Oviedo, Gijón y Avilés.</dd></div>
+          </dl>
+        </div>
+        <div class="guia-col">
+          <h3>Entre servicio y servicio</h3>
+          <dl>
+            <div class="fila"><dt>La Catedral</dt><dd>San Salvador y su Cámara Santa, Patrimonio Mundial de la UNESCO.</dd></div>
+            <div class="fila"><dt>El Naranco</dt><dd>Santa María del Naranco y San Miguel de Lillo, joyas del prerrománico.</dd></div>
+            <div class="fila"><dt>El casco antiguo</dt><dd>Peatonal casi entero: El Fontán, Trascorrales y la plaza de la Catedral.</dd></div>
+            <div class="fila"><dt>La costa</dt><dd>Cudillero, villa marinera en anfiteatro, y la playa de San Lorenzo en Gijón.</dd></div>
+          </dl>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
-
-<section class="sec" id="asturias">
-  <div class="wrap">
-    <div class="rev" style="margin-bottom:46px">
-      <span class="antetitulo">Haz del viaje parte del plan</span>
-      <h2>Ven a Oviedo, <span class="oro">quédate en Asturias</span></h2>
-      <p class="entradilla">Si vienes de fuera, estas son las rutas. Y entre servicio y servicio, la ciudad merece el paseo.</p>
-    </div>
-    <div class="viaje rev">
-      <div>
-        <h3>Cómo llegar a Oviedo</h3>
-        <dl>
-          <div class="fila"><dt>En avión</dt><dd>Aeropuerto de Asturias (OVD), a 47 km de Oviedo, con autobús directo a la ciudad.</dd></div>
-          <div class="fila"><dt>En tren</dt><dd>Alta velocidad desde Madrid-Chamartín: poco más de 3 horas por la variante de Pajares.</dd></div>
-          <div class="fila"><dt>En autobús</dt><dd>ALSA une Madrid con la estación de Oviedo (c/ Pepe Cosmen) en unas 5 a 7 horas.</dd></div>
-          <div class="fila"><dt>En coche</dt><dd>A-66 desde la Meseta o A-8 por la costa; la «Y» enlaza Oviedo, Gijón y Avilés.</dd></div>
-        </dl>
-      </div>
-      <div>
-        <h3>Entre servicio y servicio</h3>
-        <dl>
-          <div class="fila"><dt>La Catedral</dt><dd>San Salvador y su Cámara Santa, Patrimonio Mundial de la UNESCO.</dd></div>
-          <div class="fila"><dt>El Naranco</dt><dd>Santa María del Naranco y San Miguel de Lillo, joyas del prerrománico.</dd></div>
-          <div class="fila"><dt>El casco antiguo</dt><dd>Peatonal casi entero: El Fontán, Trascorrales y la plaza de la Catedral.</dd></div>
-          <div class="fila"><dt>La costa</dt><dd>Cudillero, villa marinera en anfiteatro, y la playa de San Lorenzo en Gijón.</dd></div>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
-<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
-
-<section class="sec sec--banda" id="mmm">
+<!-- QUIÉN CONVOCA -->
+<section class="sec banda" id="mmm">
   <div class="wrap mmm-cent rev">
-    <span class="antetitulo">Quién convoca</span>
-    <h2>Movimiento Misionero Mundial</h2>
-    <p class="entradilla">Una obra que nació en 1963 en Puerto Rico, de la mano del Rev. Luis M. Ortiz, y que hoy está presente en más de 80 países de los cinco continentes. Somos una iglesia cristiana evangélica pentecostal, con la familia en el centro de la misión.</p>
-    <p class="entradilla">En 2026 los bloques de Europa celebran sus convenciones en Alemania, Londres, Suiza e Italia. La del Bloque A es esta: Oviedo, del 6 al 9 de agosto.</p>
+    <h2>Convoca el <span class="oro">Movimiento Misionero Mundial</span></h2>
+    <p class="lead">Una obra que nació en 1963 en Puerto Rico, de la mano del Rev. Luis M. Ortiz, y que hoy está presente en más de 80 países de los cinco continentes. Somos una iglesia cristiana evangélica pentecostal, con la familia en el centro de la misión.</p>
+    <p class="lead">En 2026 los bloques de Europa celebran sus convenciones en Alemania, Londres, Suiza e Italia. La del Bloque A es esta: Oviedo, del 6 al 9 de agosto.</p>
     <div class="btns">
       <a class="btn btn-linea" href="https://mmmoficial.org" target="_blank" rel="noopener">Conoce la obra en mmmoficial.org</a>
     </div>
   </div>
 </section>
 
-<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
-
+<!-- PRUEBA -->
 <section class="sec">
   <div class="wrap">
-    <div class="rev" style="margin-bottom:44px">
-      <span class="antetitulo">Historias reales</span>
+    <div class="sec-cab rev">
       <h2>Vidas transformadas</h2>
-      <p class="entradilla">Familias que ya vivieron el cambio. La tuya puede ser la próxima.</p>
+      <p class="lead">Familias que ya vivieron el cambio. La tuya puede ser la próxima.</p>
     </div>
     <div class="testi-grid rev">
       <img src="img/testimonio1.jpg" alt="Testimonio de una familia de la convención" loading="lazy">
@@ -572,13 +580,14 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
   </div>
 </section>
 
+<!-- VEN -->
 <section class="final" id="asistir">
   <div class="wrap">
     <span class="libre">¡Entrada libre!</span>
     <h2>Ven con tu familia</h2>
-    <p>No necesitas entrada ni inscripción. Solo tráete a los tuyos, del 6 al 9 de agosto, al Palacio de los Deportes de Oviedo.</p>
+    <p class="lead">No necesitas entrada ni inscripción. Solo tráete a los tuyos, del 6 al 9 de agosto, al Palacio de los Deportes de Oviedo.</p>
     <div class="btns">
-      <a class="btn btn-oscuro" href="https://www.google.com/maps/search/?api=1&query=Palacio+de+los+Deportes+Oviedo+Asturias" target="_blank" rel="noopener">Ver cómo llegar</a>
+      <a class="btn btn-oscuro" href="https://www.google.com/maps/search/?api=1&query=Palacio%20de%20los%20Deportes%20de%20Oviedo%2C%20Calle%20R%C3%ADo%20Caudal%2C%2033010%20Oviedo" target="_blank" rel="noopener">Ver cómo llegar</a>
       <a class="btn btn-linea" href="#programa">Ver el programa</a>
     </div>
   </div>
@@ -594,6 +603,7 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
 </footer>
 
 <script>
+document.documentElement.classList.add('js');
 if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.querySelectorAll('.rev').forEach(el => el.classList.add('on'));
 } else {
