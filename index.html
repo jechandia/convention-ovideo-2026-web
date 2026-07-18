@@ -14,6 +14,38 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="preload" href="fonts/avigea-regular.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Convención Bloque Europa 2026 — Donde Cristo está, la Familia Vencerá",
+  "description": "Convención del Movimiento Misionero Mundial en Oviedo. Cuatro días de alabanza y predicación para toda la familia. Entrada libre, sin inscripción.",
+  "startDate": "2026-08-06T18:30:00+02:00",
+  "endDate": "2026-08-09T14:00:00+02:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "isAccessibleForFree": true,
+  "inLanguage": "es",
+  "image": "img/hero-bg.jpg",
+  "location": {
+    "@type": "Place",
+    "name": "Palacio de los Deportes de Oviedo",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Calle Río Caudal, s/n",
+      "postalCode": "33010",
+      "addressLocality": "Oviedo",
+      "addressRegion": "Asturias",
+      "addressCountry": "ES"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Movimiento Misionero Mundial — Bloque Europa",
+    "url": "https://mmmoficial.org"
+  }
+}
+</script>
 <style>
 /* ============================================================
    Convención Bloque Europa 2026
@@ -59,6 +91,8 @@ body{
    anulan aspect-ratio y las imágenes salen deformadas. */
 img{max-width:100%;height:auto;display:block}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+/* Solo para lectores de pantalla: la página no tenía h1 (el hero es una imagen). */
+.oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 :focus-visible{outline:3px solid var(--oro);outline-offset:3px}
 
 /* ---------- tipografía ---------- */
@@ -198,8 +232,10 @@ h2 .oro{color:var(--oro)}
 }
 .dia .dow{
   display:block;font-size:11px;font-weight:800;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--hueso-mid);margin:9px 0 14px;
+  text-transform:uppercase;color:var(--hueso-mid);margin:9px 0 12px;
 }
+.horas{list-style:none;margin:0 0 12px;display:grid;gap:3px;justify-items:center}
+.horas li{font-size:14px;font-weight:800;color:var(--oro);letter-spacing:.05em;font-variant-numeric:tabular-nums}
 .dia p{font-size:14.5px;color:var(--hueso-mid);line-height:1.55}
 @media(max-width:820px){
   .dias{grid-template-columns:repeat(2,1fr);row-gap:30px}
@@ -211,11 +247,9 @@ h2 .oro{color:var(--oro)}
 .lugar{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,60px);align-items:center}
 @media(max-width:900px){.lugar{grid-template-columns:1fr}}
 .lugar-foto{border:1px solid rgba(201,166,120,.3)}
-/* La dirección es el dato que hace su trabajo: que se lea grande y de un golpe. */
-.direccion{
-  font-style:normal;margin:26px 0 4px;padding-left:20px;
-  border-left:3px solid var(--oro);
-}
+/* La dirección es el dato que hace su trabajo: que se lea grande y de un golpe.
+   Sin filete lateral: la jerarquía la pone la propia Avigea. */
+.direccion{font-style:normal;margin:26px 0 4px}
 /* Una sola línea: la jerarquía la marca el color, no el salto de renglón. */
 .direccion strong,.direccion span{
   font-family:var(--display);font-weight:400;
@@ -232,6 +266,31 @@ h2 .oro{color:var(--oro)}
 }
 .btns-lugar{justify-content:flex-start;margin-top:28px}
 @media(max-width:900px){.btns-lugar{justify-content:center}}
+
+/* el viaje: cómo llegar a Oviedo y qué ver entre servicio y servicio */
+.viaje{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,64px)}
+@media(max-width:900px){.viaje{grid-template-columns:1fr}}
+.viaje h3{
+  font-family:var(--display);font-weight:400;font-synthesis:none;
+  font-size:23px;color:var(--oro);margin-bottom:8px;
+}
+.viaje .fila{padding:13px 0;border-top:1px solid rgba(201,166,120,.22)}
+.viaje .fila:last-child{border-bottom:1px solid rgba(201,166,120,.22)}
+.viaje dt{
+  font-size:10.5px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--aqua-txt);margin-bottom:3px;
+}
+.viaje dd{font-size:15px;color:var(--hueso-mid);line-height:1.55}
+
+/* quién convoca: banda en teal para variar el ritmo.
+   Sobre teal, ni el oro puro (4,28:1) ni el hueso al 72% (3,65:1) llegan a AA:
+   se aclaran solo aquí. */
+.sec--banda{background:var(--teal)}
+.sec--banda .antetitulo{color:#ffce52}
+.sec--banda .entradilla{color:rgba(239,234,221,.88)}
+.mmm-cent{max-width:72ch;margin:0 auto;text-align:center}
+.mmm-cent .entradilla{margin-left:auto;margin-right:auto}
+.mmm-cent .btns{margin-top:32px}
 
 /* testimonios */
 .testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -292,12 +351,14 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
       <a href="#expositores">Expositores</a>
       <a href="#programa">Programa</a>
       <a href="#lugar">Cómo llegar</a>
+      <a href="#asturias">Asturias</a>
       <a class="nav-cta" href="#asistir">Ven con tu familia</a>
     </div>
   </div>
 </nav>
 
 <header class="hero" id="top">
+  <h1 class="oculto">Convención Bloque Europa 2026: Donde Cristo está, la Familia Vencerá. Del 6 al 9 de agosto en el Palacio de los Deportes de Oviedo. Entrada libre.</h1>
   <div class="hero-media">
     <img class="hero-lema" src="img/lema.svg"
          alt="Donde Cristo está, la Familia Vencerá" width="1253" height="756">
@@ -404,25 +465,28 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
       <article class="dia">
         <div class="num">06</div>
         <span class="dow">Jueves</span>
+        <ul class="horas"><li>18:30 – 21:00</li></ul>
         <p>Apertura de la convención. Bienvenida, alabanza y primera Palabra.</p>
       </article>
       <article class="dia">
         <div class="num">07</div>
         <span class="dow">Viernes</span>
+        <ul class="horas"><li>9:30 – 14:00</li><li>18:30 – 21:00</li></ul>
         <p>Día dedicado al hogar: matrimonios, padres e hijos.</p>
       </article>
       <article class="dia">
         <div class="num">08</div>
         <span class="dow">Sábado</span>
+        <ul class="horas"><li>9:30 – 14:00</li><li>18:30 – 21:00</li></ul>
         <p>Las nuevas generaciones: jóvenes, testimonios y Palabra.</p>
       </article>
       <article class="dia">
         <div class="num">09</div>
         <span class="dow">Domingo</span>
+        <ul class="horas"><li>9:30 – 14:00</li></ul>
         <p>Gran servicio de clausura. Celebración y envío.</p>
       </article>
     </div>
-    <p class="nota">Los horarios de cada servicio se anunciarán próximamente.</p>
   </div>
 </section>
 
@@ -435,11 +499,57 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:22px}
       <span class="antetitulo">Cómo llegar</span>
       <h2>Palacio de los Deportes</h2>
       <address class="direccion"><strong>C/ Río Caudal, s/n</strong> <span>33010 Oviedo, Asturias</span></address>
-      <p class="entradilla">Un recinto con aforo para más de 5.000 personas, así que hay sitio para toda la familia. Guarda la dirección antes de salir: te llevará directo a la puerta.</p>
+      <p class="entradilla">Un recinto con aforo para más de 5.000 personas, así que hay sitio para toda la familia. En bus urbano, la línea E de TUA para en Río Caudal, a 70 metros de la puerta; la línea H queda a 350. Junto al pabellón hay 8 plazas reservadas para personas con movilidad reducida.</p>
       <div class="btns btns-lugar">
         <a class="btn btn-oro" href="https://www.google.com/maps/search/?api=1&query=Palacio%20de%20los%20Deportes%20de%20Oviedo%2C%20Calle%20R%C3%ADo%20Caudal%2C%2033010%20Oviedo" target="_blank" rel="noopener">Abrir en Google&nbsp;Maps</a>
         <a class="btn btn-linea" href="https://maps.apple.com/?q=Palacio%20de%20los%20Deportes%20de%20Oviedo&address=Calle%20R%C3%ADo%20Caudal,%2033010%20Oviedo,%20Espa%C3%B1a" target="_blank" rel="noopener">Abrir en Apple&nbsp;Maps</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
+
+<section class="sec" id="asturias">
+  <div class="wrap">
+    <div class="rev" style="margin-bottom:46px">
+      <span class="antetitulo">Haz del viaje parte del plan</span>
+      <h2>Ven a Oviedo, <span class="oro">quédate en Asturias</span></h2>
+      <p class="entradilla">Si vienes de fuera, estas son las rutas. Y entre servicio y servicio, la ciudad merece el paseo.</p>
+    </div>
+    <div class="viaje rev">
+      <div>
+        <h3>Cómo llegar a Oviedo</h3>
+        <dl>
+          <div class="fila"><dt>En avión</dt><dd>Aeropuerto de Asturias (OVD), a 47 km de Oviedo, con autobús directo a la ciudad.</dd></div>
+          <div class="fila"><dt>En tren</dt><dd>Alta velocidad desde Madrid-Chamartín: poco más de 3 horas por la variante de Pajares.</dd></div>
+          <div class="fila"><dt>En autobús</dt><dd>ALSA une Madrid con la estación de Oviedo (c/ Pepe Cosmen) en unas 5 a 7 horas.</dd></div>
+          <div class="fila"><dt>En coche</dt><dd>A-66 desde la Meseta o A-8 por la costa; la «Y» enlaza Oviedo, Gijón y Avilés.</dd></div>
+        </dl>
+      </div>
+      <div>
+        <h3>Entre servicio y servicio</h3>
+        <dl>
+          <div class="fila"><dt>La Catedral</dt><dd>San Salvador y su Cámara Santa, Patrimonio Mundial de la UNESCO.</dd></div>
+          <div class="fila"><dt>El Naranco</dt><dd>Santa María del Naranco y San Miguel de Lillo, joyas del prerrománico.</dd></div>
+          <div class="fila"><dt>El casco antiguo</dt><dd>Peatonal casi entero: El Fontán, Trascorrales y la plaza de la Catedral.</dd></div>
+          <div class="fila"><dt>La costa</dt><dd>Cudillero, villa marinera en anfiteatro, y la playa de San Lorenzo en Gijón.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<img class="cuerda" src="img/cuerda.png" alt="" width="1600" height="97">
+
+<section class="sec sec--banda" id="mmm">
+  <div class="wrap mmm-cent rev">
+    <span class="antetitulo">Quién convoca</span>
+    <h2>Movimiento Misionero Mundial</h2>
+    <p class="entradilla">Una obra que nació en 1963 en Puerto Rico, de la mano del Rev. Luis M. Ortiz, y que hoy está presente en más de 80 países de los cinco continentes. Somos una iglesia cristiana evangélica pentecostal, con la familia en el centro de la misión.</p>
+    <p class="entradilla">En 2026 los bloques de Europa celebran sus convenciones en Alemania, Londres, Suiza e Italia. La del Bloque A es esta: Oviedo, del 6 al 9 de agosto.</p>
+    <div class="btns">
+      <a class="btn btn-linea" href="https://mmmoficial.org" target="_blank" rel="noopener">Conoce la obra en mmmoficial.org</a>
     </div>
   </div>
 </section>
