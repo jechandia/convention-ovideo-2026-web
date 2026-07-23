@@ -298,7 +298,10 @@ h3{
 .prog-pie strong{color:var(--hueso);font-weight:800}
 
 /* expositores ---------- */
-.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.exp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+@media(max-width:1000px){.exp-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:680px){.exp-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.exp-grid{grid-template-columns:1fr}}
 .exp{
   background:rgba(0,101,124,.32);border:1px solid var(--linea);
   border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sombra);
@@ -524,6 +527,13 @@ footer .legal{font-size:12.5px;color:rgba(239,234,221,.6);margin-top:20px}
         <div class="exp-txt">
           <h3>Rev. Carlos Medina Herrera</h3>
           <span class="cargo">Director Internacional</span>
+        </div>
+      </article>
+      <article class="exp">
+        <img src="img/exp-lima.jpg" alt="Rev. Mario Lima Vacaflor" width="640" height="800" loading="lazy">
+        <div class="exp-txt">
+          <h3>Rev. Mario Lima Vacaflor</h3>
+          <span class="cargo">Tesorero Internacional</span>
         </div>
       </article>
     </div>
